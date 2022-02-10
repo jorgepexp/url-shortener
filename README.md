@@ -3,7 +3,6 @@
 > Simple URL Shortener made with Typescript 🔗
 
 ## Technologies
-
-- Typescript *Language*
+- Typescript - *Language*
 - React - *Frontend Library*
-- Next.js *React Framework*
+- Next.js - *React Framework*
