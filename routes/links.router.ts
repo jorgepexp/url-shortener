@@ -1,19 +1,16 @@
-// External Dependencies
 import express, { Request, Response } from 'express';
-import { ObjectId } from 'mongodb';
+// import { ObjectId } from 'mongodb';
 import { collections } from '../services/database.service';
 import Link from '../models/link';
 
 // Global Config
 export const linksRouter = express.Router();
-linksRouter.use(express.json());
-
-// GET
 
 // POST
-linksRouter.post('/', async (req: Request, res: Response) => {
+linksRouter.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const newLink = req.body as Link;
+    console.log('newLink', newLink);
 
     if (collections.links) {
       const result = await collections.links.insertOne(newLink);
@@ -23,12 +20,8 @@ linksRouter.post('/', async (req: Request, res: Response) => {
     }
   } catch (error) {
     let message;
-    console.error({ message });
     if (error instanceof Error) message = error.message;
     else message = String(error);
     res.status(400).send({ message });
   }
 });
-// PUT
-
-// DELETE

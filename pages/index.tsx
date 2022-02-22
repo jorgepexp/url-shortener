@@ -2,24 +2,27 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { useRef, useState } from 'react';
-import axios from 'axios';
 
 const Home: NextPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [shortURL, setShortURL] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (inputRef.current !== null) {
       const url = inputRef.current.value ?? '';
-      axios
-        .post('/api/shortenUrl', {
-          url: JSON.stringify(url),
-        })
-        .then(response => {
-          setShortURL(response.data.randomUrl);
-        })
-        .catch(error => console.error(error.message));
+
+      await fetch('api/shortenUrl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          setShortURL(data.shortenedUrl);
+        });
     }
   };
   return (
@@ -43,8 +46,8 @@ const Home: NextPage = () => {
               className={styles.input}
               placeholder='URL'
             />
-            <button className={styles.button}>Shorten</button>
-            <span className={styles.input}>{shortURL}</span>
+            <button>Shorten</button>
+            <span>{shortURL}</span>
           </form>
         </div>
       </main>
