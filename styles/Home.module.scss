@@ -4,11 +4,9 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -95,6 +93,10 @@
 .card h2 {
   margin: 0 0 1rem 0;
   font-size: 1.5rem;
+}
+
+.shorten-url-input {
+  margin-bottom: 0.5rem;
 }
 
 .card p {
